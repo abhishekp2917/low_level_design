@@ -1,0 +1,19 @@
+_____________________________________Problem___________________________________________
+
+Let's say there is a class StudentDatabase whose task is to fetch student records.
+Whenever a student record is requested by an ID, the method either returns the student 
+object or returns null if the student is not found. But what if the calling code forgets 
+to check for null? This can lead to NullPointerException and crash the application.
+
+To solve this issue and eliminate the need to write repeated null checks, we use the 
+Null Object Pattern.  
+
+_____________________________________Solution___________________________________________
+
+In Null Object Pattern, we create a special class called NullStudent that extends or 
+implements the same interface or superclass as Student. Instead of returning null, 
+the method will return an instance of NullStudent.
+
+This object behaves like a "do-nothing" or "default" object, thus avoiding null checks 
+and preventing runtime exceptions. So, the client code can safely call methods on the 
+returned object without needing to check for null values.
