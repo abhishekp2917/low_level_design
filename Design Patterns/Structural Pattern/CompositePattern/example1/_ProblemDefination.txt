@@ -1,0 +1,33 @@
+_____________________________________Problem___________________________________________
+
+Let’s say you’re building a file explorer application.
+In this app, you have two types of items: Files and Folders.
+
+A File is a leaf node (it cannot contain other items).
+
+A Folder, on the other hand, can contain both Files and other Folders (i.e., it's a composite).
+
+Now, if you want to treat both Files and Folders uniformly — for example, perform actions 
+like open(), delete(), or showSize() — you’d end up writing separate logic for each type, 
+increasing code complexity.
+
+To solve this, the Composite Pattern is used.
+
+_____________________________________Solution___________________________________________
+
+In the Composite Pattern, we define a common interface for both Files and Folders, 
+such as FileSystemItem. This interface declares common methods like showDetails() or delete().
+
+The File class implements this interface directly.
+
+The Folder class also implements the interface but maintains a list of FileSystemItem so it 
+can contain child files or folders.
+
+When a method like delete() is called on a Folder, it internally calls delete() on 
+each of its children.
+
+This allows us to treat both individual objects (Files) and compositions 
+(Folders containing more Files/Folders) uniformly.
+
+So, the client code doesn't need to worry about whether it's operating on 
+a File or Folder — it just uses the common interface.

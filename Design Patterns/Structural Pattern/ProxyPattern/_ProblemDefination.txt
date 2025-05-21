@@ -1,0 +1,28 @@
+_____________________________________Problem___________________________________________
+
+Let's say you have a class InternetAccess that allows users to access any website.
+But your organization has a policy to block access to certain restricted sites 
+(like "facebook.com" or "instagram.com").
+
+Now, if you directly use InternetAccess, users can access any site without restriction.
+To prevent access to these blocked sites without modifying the original InternetAccess class, 
+we need a way to intercept and control the access.
+
+This is where the Proxy Pattern is helpful.
+
+_____________________________________Solution___________________________________________
+
+In the Proxy Pattern, we create a new class called InternetAccessProxy that implements 
+the same interface as the original InternetAccess class and stores the reference of the
+original Class in itself.
+
+The proxy acts as a gatekeeper:
+
+    - It checks if the requested site is blocked.
+    - If it is, it denies the request.
+    - If it's allowed, it delegates the request to the real InternetAccess class.
+
+This adds a layer of access control without changing the existing business logic.
+
+So, instead of calling InternetAccess directly, the client uses InternetAccessProxy, which 
+enforces rules like blocking restricted sites.
