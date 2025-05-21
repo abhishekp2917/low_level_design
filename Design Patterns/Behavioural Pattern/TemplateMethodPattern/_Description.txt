@@ -1,0 +1,35 @@
+let say there are multiple sub-classes which have different implementation for a 
+particular method that they inherit from parent class but some section of this method
+have same logic and implementated in similar way like all other does but rest part is 
+different for different sub-class. 
+
+In this case instead of repeating the section of method that has similar logic for
+all methods we can use Template Method pattern.
+
+In Template Method pattern, we segregate a method i.e. a template method into 
+multiple methods and use all other segregated method in that template method in 
+parent class. 
+
+While inheriting the parent class, if child class have some different 
+implementation of methods used in template method, then that child class will
+override that method only since rest of the methods in template method have 
+implementation which is acceptable by this sub-class.
+
+For instance we have an Game abstract class in which tthere is a method called load
+which loads the game for playing. This load method first load the dependency files,
+build the GUI, clean the redundant files etc. 
+
+Now there are two concrete games that inherit the Game class i.e CricketFever and 
+SpaceShooter. These class loading dependencies and building GUI logic differ from
+each other but have same logic for cleaning redundant files therefore tthey just have 
+to override loading dependencies and GUI building method not the entire load method.
+
+_________________________________________________________________________________________
+
+When to use Template Method pattern:
+
+If there is a use case where a method is common to all the sub-classes but only
+certain portion of method logic is different from each other, then we should use 
+Template Method pattern.
+
+

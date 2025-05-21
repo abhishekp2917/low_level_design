@@ -1,0 +1,25 @@
+_______________________________________Problem_________________________________________
+
+Suppose there is restaurant which serves various dishes like 'Samosha', 'Dhosa',
+'Mendu Vada' etc which is of type 'Dishes' and customer can order these dishes and in
+addition to these dishes they can have various combinations of addons like 
+'Red Chutney', 'Green Chutney', 'Sambhar', 'Coconut Chutney', 'Ketchup' etc.
+
+Since, there are multiple combinations of dishes with addons are possible and one customer
+can order one dishes with multiple and various types addons like 'Dhosa' with 
+'Coconut Chutney', 'Ketchup' and 'Green Chutney' we have to make all the combinations
+Dishes which will result in class explosion. Moreover, it is not scalable and manageable.
+
+To solve this, one can use Decorator pattern. 
+
+
+_____________________________________Solution___________________________________________
+
+In Decorator pattern, we will make abstract class of Dishes and from that we will make 
+concrete class of various Dishes like 'Samosha', 'Dosha' etc.
+
+Now for addons, we will make another abstract class of 'Addons' which will be of type
+'Dishes' and will use 'Dishes' type object to add own class functionality and we can use 
+any number and combination of 'Addons'.
+
+

@@ -1,0 +1,15 @@
+Let say you want to track the state of the object as a snapshot as there is any 
+change in object but to track it you have to make all the attributes of the object 
+public or have to provide access to all those object using getters. 
+
+This problem can be solved by using memento Pattern in which responsibility of 
+storing the snapshots of the object is given to the object itself and to achieve 
+this object has a innerclass which has all the attributes similar to outer class
+and tracks the attributes of the outer class.
+
+_____________________________________________________________________________________
+
+When to use Memento Pattern:
+
+Memento Pattern is used when you want to track and store the snapshots of an object
+and doesn't want to expose the attributes of the object.

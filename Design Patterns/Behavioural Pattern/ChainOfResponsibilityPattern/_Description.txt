@@ -1,0 +1,22 @@
+In Chain of Responsibility (COR) pattern multiple object process on single object or input
+in a sequencial manner to acchieve a common goal. Let say you want to authenticate 
+a user before giving access to certain web pages and for authentication you want to 
+check whether username entered is valid or not, if its valid then check password 
+thereafter check captcha entered and at last check the otp entered by the user 
+if everything goes well then give access to user. 
+
+In this use case, multiple checker is processing on single input to achieve a common 
+goal that is to authenticate user and if at any stage of chain user input isn't valid
+the chain will break and no further process will happen.
+
+Another usecase can be where a candidate has to be hired based on the different 
+rounds it clears and will get selected after passing all the rounds. Since all the 
+rounds will be in a sequence therefore we must use COR pattern here.
+
+_______________________________________________________________________________________
+
+When to use Chain of Responsibility Pattern:
+
+If there are multiple process that has to be done in sequencial manner for single 
+input to achieve common goal that it is advisable to use Chain of Responsibility 
+pattern 

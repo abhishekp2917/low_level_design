@@ -1,0 +1,23 @@
+Let say there is an entity which can be in multiple state and in each state it has 
+different behaviour in that case one possible solution is to use if-else in each 
+behaviour and depending on the state execute a particular logic. But this kind of 
+aproach is difficult to handle and whenever there is a new state introduced to the 
+entity then we have to change each method which violates the open-closed principle.
+
+To solve this we have State pattern in which we define behavious for each state in a 
+separate class and the entity which has multiple state delegates the responsibility
+to execute the behaviour to the that state class in which the entity is in.
+
+For instance an ATM machine can have states such as card insert, card not insert, 
+no cash available etc and in each case it can have behaviour or action such as 
+card inserted, pin entered, card ejected etc and based on which state the ATM is it
+will have different execution for each behaviour and each behaviour will may or 
+may not change the state of ATM.
+
+_______________________________________________________________________________________
+
+When to use State pattern:
+
+If there is a case where the object behaves differently based on different state then 
+it is recommendable to use State pattern.
+ 

@@ -1,0 +1,17 @@
+Let say there are muliple objects communication with each other for instance an 
+Employee object communicate with HR, Manager and Accountant while Accountant 
+communicate with HR and Manager etc. As we can observe here is that this type of
+multiple object interaction creates a mesh which is difficult to handle and 
+unmangeable.
+
+To solve this problem we use Mediator Pattern in which for interaction or 
+communiaction between multiple objects there is a mediator which makes the 
+interaction a smooth process and results in loosely coupled system.
+
+_____________________________________________________________________________________
+
+When to use Mediator Pattern:
+
+if there are multiple objects which interact with each other and forms a mesh
+then we must use Mediator Pattern in which its mediator responsibilty to conduct a
+smooth communication between objects.

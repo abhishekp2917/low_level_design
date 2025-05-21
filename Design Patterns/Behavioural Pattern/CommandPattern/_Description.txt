@@ -1,0 +1,22 @@
+In Command pattern we encapsulate the command in a class which has two method, one for 
+executing the command for which the class is created and another is for undoing or 
+unexecuting that command. 
+
+This command object is then invoked by the invoker object and since invoker and command
+are separate we can pass the command at the runtime which will give more flexibility
+to the application.
+
+This pattern is mostly used in case where there is a requirement to undo any operation
+or to track the opeartion so that at later stage it can be undone. For instance if we
+want to make image editor in which we want to track the operation that have been done
+on image in that case we can make use of command pattern. Moreover, we can use it in 
+home automation system where we can assosiate commands that acts on various appliances
+with invoker such as remote comtrol or voice assistance.
+
+_____________________________________________________________________________________
+
+When to use Command Pattern:
+
+When there are multiple consumer or methods which uses same logic, then instead of 
+writing code for same logic multiple time, make that logic encapsulated into a class
+so that all the methods which want to use that logic can use it.
