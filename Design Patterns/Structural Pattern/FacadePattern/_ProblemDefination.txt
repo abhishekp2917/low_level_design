@@ -1,0 +1,35 @@
+_______________________________________Problem_________________________________________
+
+Suppose your e-commerce application supports online payments and to complete a payment, 
+you have to go through multiple steps:
+
+    - Validate the payment card
+    - Check for fraudulent activity
+    - Process the transaction
+    - Log the payment
+    - Send email/SMS confirmation
+
+These steps are handled by different classes: CardValidator, FraudChecker, PaymentProcessor, 
+TransactionLogger, NotificationService
+
+Now, if you want to trigger a payment from different places (checkout page, subscription service, 
+refund service), you’ll have to call all these classes in the correct order from each place.
+
+But what if you later change your fraud detection logic or switch to a new payment gateway? 
+You’ll have to update the code in all places where payment is processed.
+
+_____________________________________Solution___________________________________________
+
+To solve this problem, we use the Facade Pattern.
+
+In the Facade pattern, we create a single class — let's say PaymentFacade — which internally 
+coordinates all those complex operations mentioned above.
+
+Now, whenever any part of your application wants to process a payment, it only calls the PaymentFacade.
+
+So, if in the future you change how payments are processed (e.g., switching from Stripe to Razorpay), 
+you only need to update logic in the PaymentFacade, not everywhere the payment was being made.
+
+This leads to clean, centralized logic, Loose coupling between business code and payment 
+infrastructure and much easier maintenance and upgrades.
+
