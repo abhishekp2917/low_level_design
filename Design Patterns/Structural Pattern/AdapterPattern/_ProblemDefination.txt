@@ -1,12 +1,22 @@
 _____________________________________Problem___________________________________________
 
-Let say there is an assignment class whose task to write the assignment but to write
-the assignment there is a method in that class and you need a pen to write it. But 
-what if you have a content in PDF then how you can use the PDF object in your method
-which takes pen only to write the assignment. To solve Adapter pattern is used.   
+Suppose there is a client that needs to generate a JSON payload using a method that works 
+only with objects implementing the PayloadGenerator interface. 
+
+However, your existing code generates payloads only in XML format through a class 
+XMLPayloadAdaptee which provides a method to generate XML. The client cannot directly 
+use the XML payload where JSON is expected. 
+
+How can you integrate the existing XML generator so the client can seamlessly get JSON payloads? 
 
 _____________________________________Solution___________________________________________
 
-In Adapter pattern, we will create an adapter class of type Pen and we will use method 
-of PDF to get the content in adapter class and will write the assignment. And since
-adapter class is of type Pen, we can use that class object to write the assignment.
+Using the Adapter pattern, we create an adapter class JSONPayloadAdapter that implements 
+the PayloadGenerator interface (expected by the client). 
+
+This adapter holds a reference to the XMLPayloadAdaptee and internally calls its XML 
+generation method. 
+
+It then converts or adapts the XML data into JSON format inside the adapter class. Since 
+the adapter implements PayloadGenerator, the client can use it just like any other JSON 
+payload generator, enabling reuse of the existing XML payload code without modifying the client.

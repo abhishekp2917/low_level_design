@@ -8,7 +8,7 @@ public class Client1 {
             creating proxy internet which acts as a protection layer of 
             actual internet
         */
-        ProtectionProxyInternet internet = new ProtectionProxyInternet();
+        Internet internet = new ProtectionProxyInternet();
 
         /* 
             trying to connect to site which is not in banned list

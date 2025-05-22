@@ -20,10 +20,6 @@ public class Composite extends Component{
         this.name = name;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     public List<Component> getComponents() {
         return this.components;
     }
@@ -42,6 +38,11 @@ public class Composite extends Component{
 
     public void removeComponent(Component component) {
         this.components.remove(component);
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
     }
 
     /* 

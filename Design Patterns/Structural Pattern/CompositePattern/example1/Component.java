@@ -12,21 +12,5 @@ public abstract class Component {
 
     public abstract String getName();
 
-    public List<Component> getComponents() {
-        throw new UnsupportedOperationException("This component is not of composite type");
-    }
-
-    public void setComponents(List<Component> components) {
-        throw new UnsupportedOperationException("This component is not of composite type");
-    }
-
-    public void addComponent(Component component) {
-        throw new UnsupportedOperationException("This component is not of composite type");
-    }
-
-    public void removeComponent(Component component) {
-        throw new UnsupportedOperationException("This component is not of composite type");
-    }
-
     public abstract double calculatePrice();
 }

@@ -26,13 +26,15 @@ public class Leaf extends Component{
         this.price = price;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    @Override
     public String getName() {
         return name;
     }
 
-    public double getPrice() {
-        return price;
-    }
 
     /* 
         overriding cacculatePrice of component interface since all the components

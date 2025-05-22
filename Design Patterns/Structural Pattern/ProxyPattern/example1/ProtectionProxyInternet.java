@@ -1,6 +1,7 @@
 package StructuralPattern.ProxyPattern.example3.Solution;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /* 
@@ -12,19 +13,13 @@ public class ProtectionProxyInternet implements Internet{
         creating RealInternet object to get access to methods that will be use to
         create internet connection
     */
-    private static RealInternet internet = new RealInternet();
+    private Internet internet = new RealInternet();
 
     /* 
         list of all the banned sites  
     */
-    private static List <String> bannedSites = new ArrayList<>();
+    private List <String> bannedSites = new ArrayList<>(Arrays.asList("ABC", "DEF", "XYZ"));
 
-    static{
-        bannedSites.add("ABC");
-        bannedSites.add("DEF");
-        bannedSites.add("XYZ");
-    }
-    
     /* 
         filtering the request and blocking access to banned sites
     */
