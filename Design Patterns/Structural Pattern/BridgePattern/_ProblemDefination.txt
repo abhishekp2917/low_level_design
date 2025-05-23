@@ -1,0 +1,48 @@
+_______________________________________Problem_________________________________________
+
+Suppose we are building an OTT platform like Spotify, where we need to display various 
+types of resources such as:
+
+    - Albums    
+    - Books
+    - Movies
+    - Songs etc.
+
+These resources can be displayed in multiple view formats like:
+
+    - Short Summary View
+    - Long Descriptive View
+    - Thumbnail View
+    - Detail View
+
+Now, for every combination of resource and view type, if we were to create a separate class 
+(e.g., AlbumShortView, SongThumbnailView, BookLongView, etc.), this would quickly lead to class explosion.
+
+With 4 view types and 6 resource types, we would need to create 4 × 6 = 24 classes.
+
+If we add a new view or a new resource, we’d have to create even more classes to cover all combinations.
+
+This becomes hard to maintain, rigid, and violates Open-Closed Principle (open for extension, closed for modification).
+
+
+_____________________________________Solution___________________________________________
+
+To solve this problem, we apply the Bridge Pattern.
+
+With the Bridge pattern:
+
+    - We decouple the abstraction (views) from its implementation (resources).
+
+    - We create separate class hierarchies for views and resources.
+
+    - The view classes hold a reference to the resource interface, and delegate specific 
+      content-rendering logic to the resource classes.
+
+This allows us to combine any view with any resource at runtime, avoiding class explosion.
+
+So, instead of making 24 classes, we make only 4 (views) + 6 (resources) = 10 classes.
+
+When a new view or resource is added, we don’t modify existing classes, just add a new one.
+
+This makes the system scalable, maintainable, and extensible.
+

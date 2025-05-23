@@ -30,9 +30,4 @@ public class SongLongView extends View{
     public void show() {
         System.out.println("Showing Long view \nSinger : " + this.getSinger() + "\nSong Title : " + this.getTitle());
     }
-
-    @Override
-    public void hide() {
-        System.out.println("Hiding Long view \nSinger : " + this.getSinger() + "\nSong Title : " + this.getTitle());
-    }
 }

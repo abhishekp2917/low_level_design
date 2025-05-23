@@ -1,6 +1,3 @@
-package StructuralPattern.BridgePattern.example1.solution;
-
-
 /* 
     creating Book resource to show it in different views
 */

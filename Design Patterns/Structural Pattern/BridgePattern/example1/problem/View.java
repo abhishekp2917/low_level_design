@@ -7,15 +7,11 @@ public abstract class View {
     
     protected double viewHeight;
     protected double viewWidth;
-    protected boolean scrollable;
 
-    View(double viewHeight, double viewWidth, boolean scrollable) {
+    View(double viewHeight, double viewWidth) {
         this.viewHeight = viewHeight;
         this.viewWidth = viewWidth;
-        this.scrollable = scrollable;
     }
 
     public abstract void show();
-
-    public abstract void hide();
 }

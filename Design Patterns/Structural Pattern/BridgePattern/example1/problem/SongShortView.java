@@ -21,9 +21,4 @@ public class SongShortView extends View{
     public void show() {
         System.out.println("Showing Short view \nSinger : " + this.getSinger());
     }
-
-    @Override
-    public void hide() {
-        System.out.println("Hiding Short view \nSinger : " + this.getSinger());
-    }
 }

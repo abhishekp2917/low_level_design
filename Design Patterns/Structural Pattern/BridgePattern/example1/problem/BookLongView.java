@@ -32,9 +32,4 @@ public class BookLongView extends View{
     public void show() {
         System.out.println("Showing Long view \nAuthor : " + this.getAuthor() + "\nBook Title : " + this.getTitle());
     }
-
-    @Override
-    public void hide() {
-        System.out.println("Hiding Long view \nAuthor : " + this.getAuthor() + "\nBook Title : " + this.getTitle());
-    }
 }

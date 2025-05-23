@@ -1,5 +1,3 @@
-package StructuralPattern.BridgePattern.example1.solution;
-
 /* 
     creating Song resource to show it in different views
 */

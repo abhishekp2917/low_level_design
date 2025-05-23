@@ -21,9 +21,4 @@ public class BookShortView extends View{
     public void show() {
         System.out.println("Showing Short view \nAuthor : " + this.getAuthor());
     }
-
-    @Override
-    public void hide() {
-        System.out.println("Hiding Short view \nAuthor : " + this.getAuthor());
-    }
 }
