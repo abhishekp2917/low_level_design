@@ -1,52 +1,22 @@
-package StructuralPattern.FlyWeightPattern.example1.Problem;
-
-
 /* 
     Circle class whose lots of objects is to created
 */
-public class Circle {
-
-    public static int circleCount = 0;
+public class Circle implements Shape {
 
     private double radius;
+    private Color color;
     private double xCoordinate;
     private double yCoordinate;
-    private Color color;
+    
 
-    public Circle(double radius, double xCoordinate, double yCoordinate, Color color) {
+    public Circle(double radius, Color color) {
         this.radius = radius;
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
         this.color = color;
-        circleCount++;
         System.out.println("Circle object created");
     }
 
-    public double getRadius() {
-        return radius;
-    }
-    
-    public double getxCoordinate() {
-        return xCoordinate;
-    }
-
-    public double getyCoordinate() {
-        return yCoordinate;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setRadius(double radius) {
-        this.radius = radius;
-    }
-    
-    public void setxCoordinate(double xCoordinate) {
+    public void setPosition(double xCoordinate, double yCoordinate) {
         this.xCoordinate = xCoordinate;
-    }
-
-    public void setyCoordinate(double yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
 

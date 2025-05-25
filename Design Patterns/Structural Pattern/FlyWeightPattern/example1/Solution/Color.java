@@ -1,5 +1,3 @@
-package StructuralPattern.FlyWeightPattern.example1.Solution;
-
 /* 
     enum of Color which is going to be used in creating various circle objects
 */

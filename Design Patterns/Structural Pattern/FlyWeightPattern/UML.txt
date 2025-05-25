@@ -1,0 +1,47 @@
+            _____________________________________________________
+            |                                                   |                          
+            |                  CircleFactory                    |
+            |___________________________________________________|                                                           
+            |                                                   |  
+            | - shapeMap : Map<String, Shape>                   | // Key = "<shapeType>_<radius>_<color>"                                          
+            |___________________________________________________| 
+            |                                                   |               
+            | + getShape(radius: double,color: Color) : Shape   |
+            |                                                   |                                                                                            
+            |___________________________________________________|                                                          
+                                    ◇
+                                    | 
+                                    | Has-A    
+                                    |
+                                    |
+            _____________________________________________________
+            |                  <<Interface>>                    |
+            |                     Shape                         |
+            |___________________________________________________|
+            |                                                   |
+            | + setPosition(x: double, y: double) : void        |
+            | + draw() : void                                   |
+            |                                                   |
+            |___________________________________________________|
+                                    ▲
+                                    :
+                                    : Is-A
+                                    :
+                                    :
+            _____________________________________________________                       
+            |                                                   |                      
+            |                     Circle                        |                       
+            |___________________________________________________|   
+            |                                                   |                    
+            | - radius      : Double   // intrinsic data        |                       
+            | - color       : Color    // intrinsic data        |                          
+            | - xCoordinate : double   // extrinsic data        |    
+            | - yCoordinate : double   // extrinsic data        |
+            |                                                   |
+            |___________________________________________________| 
+            |                                                   |                      
+            | + Circle(radius: double, color: Color)            | // constructor for intrinsic data
+            | + setPosition(x: double, y: double) : void        | // setter for extrinsic data
+            | + draw() : void                                   |
+            |                                                   |                       
+            |___________________________________________________|                       

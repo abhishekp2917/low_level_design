@@ -1,0 +1,40 @@
+_______________________________________Problem_________________________________________
+
+In some applications, there is a requirement to create hundreds of thousands of objects. 
+However, many of these objects share common attributes. Creating separate instances for 
+each one results in high memory consumption, potentially leading to performance degradation 
+or memory exhaustion.
+
+For instance, consider a drawing application that renders millions of shapes, many of 
+which have the same color or style. Creating separate objects for each shape—even when 
+many share similar data—is wasteful.
+
+_____________________________________Solution___________________________________________
+
+The Flyweight pattern is a structural design pattern that reduces memory usage by sharing 
+as much data as possible between similar objects. Instead of creating a new object each 
+time, it reuses existing instances.
+
+To do this, the pattern distinguishes between two types of data:
+
+Intrinsic Data:
+
+    - Common, unchanging data that can be reused across multiple objects.
+    - Example: shape type, color, or line style.
+
+Extrinsic Data:
+
+    - Unique per object, supplied at runtime by the client.
+    - Example: position (x, y), rotation, or size of the shape.
+
+A Flyweight Factory is used to store and manage obejcts.
+
+When a client needs an object, it:
+
+    - Requests it from the factory using intrinsic data (e.g., color).
+    - The factory returns an existing shared instance if it exists, or creates a new one if not.
+    - The client provides extrinsic data (e.g., coordinates) externally at the time of use.
+
+The Flyweight object is cached using a key that may be one or a combination of intrinsic values. 
+There can be one or more intrinsic values, but caching is based on their unique combination.
+
