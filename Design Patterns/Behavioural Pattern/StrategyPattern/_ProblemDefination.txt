@@ -1,0 +1,27 @@
+_____________________________________Problem___________________________________________
+
+Let's say you have a method that performs a specific functionality — for example, 
+calculating an employee's role-based responsibility or performing an algorithm like 
+sorting or payment calculation.
+
+Now, the logic of this method can change frequently or vary based on the type of 
+object (like Developer, Analyst, or Manager). If you hard-code this logic directly 
+inside the object, you'd need to modify it every time the requirement changes -
+violating the Open-Closed Principle.
+
+This makes the system harder to maintain and scale.
+
+_____________________________________Solution___________________________________________
+
+The Strategy Pattern solves this problem by encapsulating each algorithm (or logic) 
+into a separate class called a Strategy. Each strategy class implements a common interface 
+and provides its specific implementation.
+
+Then, instead of embedding the logic inside the main object, the object delegates 
+the execution to a strategy object, which can be changed at runtime.
+
+This adds flexibility and decouples the algorithm from the context object. Now, when 
+logic needs to change:
+
+    - You don’t modify the original method.
+    - You just plug in a different strategy implementation.
