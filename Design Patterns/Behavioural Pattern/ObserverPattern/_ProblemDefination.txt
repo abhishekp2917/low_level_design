@@ -1,0 +1,31 @@
+____________________________________Problem__________________________________________
+
+Let’s say you have multiple objects that depend on the state of a single object.
+
+Now, if that central object changes, all dependent objects need to react to that 
+change. A naive approach would be for each dependent (observer) object to 
+continuously check (poll) the central object’s state. This can lead to inefficiency, 
+tight coupling, and redundant computation, especially when the state changes infrequently.
+
+It also violates the Open-Closed Principle because you might have to manually 
+register or check each dependent class whenever the state changes.
+
+This makes the system harder to maintain, scale, and extend.
+
+____________________________________Solution__________________________________________
+
+The Observer Pattern solves this problem by defining a one-to-many relationship
+between a Subject (Observable) and multiple Observers.
+
+The subject maintains a list of its dependents (observers) and notifies them automatically 
+whenever a change occurs — instead of them polling.
+
+Each observer implements a common interface and can independently respond to the update 
+without tightly coupling to the subject. The subject doesn’t need to know the details of 
+what the observers do — it just pushes updates.
+
+This allows:
+
+    - Decoupling between subject and observers.
+    - Dynamic registration and removal of observers at runtime.
+    - Efficient, event-driven updates to dependents.

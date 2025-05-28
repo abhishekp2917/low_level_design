@@ -1,0 +1,35 @@
+____________________________________Problem__________________________________________
+
+Imagine you are building a system where you need to perform various operations such 
+as turning devices on/off in a home automation app, or applying actions like crop, 
+rotate, or filter in an image editor. Later, you might want to undo or replay these operations.
+
+If you directly invoke the operation logic from UI or client code, it leads to tight 
+coupling between the invoker (UI/controller) and the receivers (actual logic implementers). 
+
+This violates the Open/Closed Principle and makes the system hard to extend or maintain.
+
+Additionally, maintaining a history of operations (to support undo/redo) becomes more 
+difficult if operations are not treated as first-class objects.
+
+____________________________________Solution__________________________________________
+
+The Command Pattern solves this by encapsulating a request or operation in a command object. 
+Each command class implements a common interface and provides two key methods:
+
+    - execute() — to perform the command
+    - undo() — to reverse the command (optional, but common)
+
+The Invoker triggers these command objects without needing to know their internal logic. 
+The Receiver is the actual object that performs the action.
+
+This pattern provides:
+
+    - Loose coupling between invoker and receiver.   
+    - Ability to parameterize and queue commands.
+    - Support for undo/redo by storing a history of executed commands.
+
+Use the Command Pattern when:
+
+    - You want to support undo/redo functionality.
+    - You want to log or queue requests for auditing or deferred execution.

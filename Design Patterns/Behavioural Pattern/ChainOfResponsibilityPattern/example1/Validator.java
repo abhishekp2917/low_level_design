@@ -20,8 +20,8 @@ public abstract class Validator {
         method to set next validator which will validate after current validator 
         completes validation
     */
-    public void setNextValidator(Validator nextValidator) {
-        this.nextValidator = nextValidator;
+    public void setNextValidator(Validator validator) {
+        this.nextValidator = validator;
     }
 
     // method to validate userinput

@@ -9,7 +9,7 @@ import java.util.List;
 */
 public class Channel {
 
-    private String channelName;
+    public String channelName;
     // lis to store all the subscriber of this channel
     private List <Subscriber> subscribers = new ArrayList<>(); 
     // list to store all the videos uploaded by this channel
@@ -18,18 +18,6 @@ public class Channel {
     public Channel(String channelName) {
         this.channelName = channelName;
         System.out.println("Channel name: " + channelName + " created successfully!\n");
-    }
-
-    public String getChannelName() {
-        return channelName;
-    }
-
-    public List<Subscriber> getSubscribers() {
-        return subscribers;
-    }
-
-    public List<Video> getVideos() {
-        return videos;
     }
 
     /* 
@@ -57,7 +45,7 @@ public class Channel {
     /* 
         method to add subscriber to this channel
     */
-    public void addSubscriber (Subscriber subscriber) {
+    public void addSubscriber(Subscriber subscriber) {
         subscribers.add(subscriber);
     }
 }

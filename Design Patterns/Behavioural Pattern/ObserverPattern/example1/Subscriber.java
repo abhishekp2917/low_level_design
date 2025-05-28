@@ -5,14 +5,10 @@ package BehaviouralPattern.ObserverPattern.example1.Solution;
 */
 public class Subscriber {
     
-    private String name;
+    public String name;
 
     Subscriber(String name) {
         this.name = name;
-    }
-    
-    public String getName() {
-        return name;
     }
 
     /* 

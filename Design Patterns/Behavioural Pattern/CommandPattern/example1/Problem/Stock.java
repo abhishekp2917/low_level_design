@@ -1,5 +1,3 @@
-package BehaviouralPattern.CommandPattern.example2.Solution;
-
 /* 
     Stock class which have info about particular stock which can be bought and sold 
 */

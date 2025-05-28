@@ -1,0 +1,42 @@
+_____________________________________Problem___________________________________________
+
+Let's say you need to perform a series of validations before granting a user access to 
+a secure webpage. For instance, a user must pass multiple authentication checks:
+
+    - Verify the username
+    - Validate the password
+    - Confirm the captcha
+    - Verify the OTP
+
+If any of these validations fail, the user must be denied access immediately — and the 
+remaining checks should be skipped.
+
+Now, if you implement all these checks in a single method using if-else or nested conditions, 
+the code becomes rigid, hard to maintain, and violates the Single Responsibility Principle. 
+
+Moreover, adding or reordering checks would require modifying existing code, increasing 
+the risk of bugs.
+
+This is where the Chain of Responsibility pattern fits perfectly.
+
+_____________________________________Solution___________________________________________
+
+The Chain of Responsibility (COR) pattern solves this problem by organizing all the handlers 
+(i.e., validation steps) into a chain, where:
+
+    - Each handler performs its own task.
+
+    - If it passes, the request is forwarded to the next handler.
+
+    - If it fails, the chain is broken and processing stops.
+
+Each handler implements a common interface and maintains a reference to the next handler in the chain. 
+The input flows through the chain sequentially, and the decision-making is delegated across handlers.
+
+This adds flexibility and decouples the validation logic, so:
+
+    - You can easily add or remove checks without altering existing handlers.
+
+    - The order of checks can be modified dynamically.
+
+    - Each handler class remains focused on its own responsibility.

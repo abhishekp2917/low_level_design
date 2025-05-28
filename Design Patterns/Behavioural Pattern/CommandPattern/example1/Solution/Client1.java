@@ -1,40 +1,34 @@
-package BehaviouralPattern.CommandPattern.example1.Solution;
-
 public class Client1 {
-    
     public static void main(String[] args) {
+        
+        // creating Broker object which will invoke commands
+        Broker1 sensexBroker = new Broker1("sensexBroker");
 
-        // creating appliance objects
-        Light kitchenLight = new Light("kitchen light");
-        Light roomlight = new Light("room light");
-        MusicPlayer musicPlayer1 = new MusicPlayer("musicPlayer1");
+        // creating various stocks object
+        Stock microsoftStock = new Stock("Microsoft", 20000.0);
+        Stock paytmStock = new Stock("Paytm", 100.0);
+        Stock jioStock = new Stock("Jio", 500.0);
 
-        // creating amazon alexa object which will be used to controll various appliances
-        AmazonAlexa alexa = new AmazonAlexa(kitchenLight, roomlight, musicPlayer1);
+        // broker taking orders of buying and selling different stocks 
+        sensexBroker.takeOrder(new BuyStock(microsoftStock));
+        sensexBroker.takeOrder(new BuyStock(paytmStock));
+        sensexBroker.takeOrder(new SellStock(microsoftStock));
+        sensexBroker.takeOrder(new BuyStock(jioStock));
 
-        // creating remote controller object which will be used to controll various appliances
-        RemoteContoller controller = new RemoteContoller(kitchenLight, roomlight, musicPlayer1);
+        // broker completing orders
+        sensexBroker.completeOrders();
 
-        // contolling kitchen light using alexa
-        alexa.turnOnKitchenLight();
-        alexa.turnOffKitchenLight();
+        // Undoing the last 2 operations
+        System.out.println("\nUndoing last 2 operations:");
+        sensexBroker.undoLastOrder();
+        sensexBroker.undoLastOrder();
 
-        // contolling kitchen light using controller
-        controller.pressThree();
-        controller.pressFour();
+        // Undoing again just to demonstrate
+        System.out.println("\nUndoing remaining operations:");
+        sensexBroker.undoLastOrder();
+        sensexBroker.undoLastOrder();
 
-        // controlling music player using alexa
-        alexa.turnOnMusicPlayer();
-
-        // controlling music player using controller
-        controller.pressFive();
-
-        // controlling room light using alexa
-        alexa.turnOnRoomLight();
-        alexa.turnOffRoomLight();
-
-        // controlling room light using controller
-        controller.pressOne();
-        controller.pressTwo();
+        // Trying to undo beyond history
+        sensexBroker.undoLastOrder();
     }
 }

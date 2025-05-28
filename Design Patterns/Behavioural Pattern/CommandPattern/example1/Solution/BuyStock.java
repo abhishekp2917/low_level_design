@@ -1,5 +1,3 @@
-package BehaviouralPattern.CommandPattern.example2.Solution;
-
 /* 
     SellStock class which will be used to buy a particular stock by broker
 */
@@ -15,5 +13,11 @@ public class BuyStock implements Command{
     @Override
     public void execute() {
         this.stock.buy();
-    }    
+    }  
+    
+    // execute method which will undo i.e. sell the stock
+    @Override
+    public void undo() {
+        this.stock.sell();
+    }  
 }
