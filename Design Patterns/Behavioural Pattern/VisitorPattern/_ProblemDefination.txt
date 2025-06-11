@@ -1,0 +1,40 @@
+_____________________________________Problem___________________________________________
+
+Let’s say you are building a system with different types of objects such as SilverCard, 
+GoldCard, and PlatinumCard.
+
+Each of these classes has to support multiple operations like applying offers, calculating 
+discounts, or generating reports.
+
+If you place all these operations inside the classes themselves, then every time a new 
+operation is added (e.g., a new offer), you must modify all the card classes, which violates 
+the Open-Closed Principle (open for extension, closed for modification).
+
+Additionally, this leads to scattered logic, tight coupling, and poor maintainability, especially 
+as the number of operations grows.
+
+_____________________________________Solution___________________________________________
+
+The Visitor Pattern solves this problem by separating the operations from the object structure.
+
+You define a Visitor interface with a visit() method for each type of element (e.g., visit(SilverCard), visit(GoldCard)).
+Each operation is placed inside a ConcreteVisitor, such as CashbackVisitor, DiscountVisitor, etc.
+
+Each element (like SilverCard) implements an accept(Visitor visitor) method, which allows the visitor to perform an operation on it.
+
+This enables you to add new operations without modifying the existing object classes.
+
+✅ This provides:
+Open/Closed Principle compliance: Add new logic without changing existing classes.
+
+Separation of concerns: Keep operations out of data classes.
+
+Double Dispatch: Ensures the correct operation runs for both object type and visitor type.
+
+Use the Visitor Pattern when:
+You have a complex object structure and want to perform multiple unrelated operations on it.
+
+You want to add new operations without modifying the objects.
+
+You want to use double dispatch (execute logic based on both object and visitor type).
+

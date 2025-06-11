@@ -1,0 +1,83 @@
+1. Parking Lot
+    
+    Factory Pattern: for creating different vehicle & spot types 
+    Singleton or Strategy: to choose parking strategy 
+
+2. Elevator System
+    
+    State Pattern: for elevator states (moving, idle, door-open) 
+    Observer Pattern: to notify controllers or UI components 
+    Singleton: for the central elevator controller 
+
+
+3. BookMyShow   
+    
+    Facade Pattern: to simplify interactions like seat selection, payment, coordination 
+    Factory Pattern: for creating tickets, seats, shows
+    Observer Pattern: notifying users about seat availability, updates
+
+4. Splitwise
+
+    Factory: to create specific transaction or group types 
+    Observer: for notifying group members of new expenses
+    Strategy: for different debt settlement algorithms 
+    Builder: for constructing complex settlement data 
+
+5. Inventory Management System
+
+    Singleton: for configuration or inventory manager 
+    Factory: to generate product, order, or inventory items 
+    Strategy: to handle different inventory strategies (FIFO, LIFO)
+    Observer: for alerts on low stock or replenishment needs 
+
+6. Payment Gateway
+
+    Adapter: to integrate different payment providers (Stripe, PayPal, etc.) 
+    Strategy: for choosing payment processing logic dynamically 
+    Observer: for transaction updates and notifications 
+    Factory Method: to create payment or transaction objects
+    Facade: to orchestrate the payment flow and simplify the interface
+
+
+7. Design Tic‑Tac‑Toe
+    
+    Singleton: for the single GameController 
+    Factory: for instantiating player objects via PlayerFactory 
+    Observer: for updating players when the board changes 
+    Strategy: to encapsulate different algorithms for move validation and win/draw checks 
+
+
+8. LLD of Car Rental System
+
+    Factory/Abstract Factory: for creating different types of vehicles (cars, vans, etc.)
+    Strategy: for rental fee calculation (hourly, daily, weekly)
+    Repository: to manage data store of vehicles and bookings
+    Decorator: to add features like GPS, child seat rentals
+
+9. LLD of Snake n Ladder
+
+    Singleton: single game instance
+    Strategy: dice rolling mechanism (e.g. standard vs. randomized)
+    Observer: to notify when players move or game state changes
+    State: to represent player states (e.g. at start, in-game, won)
+
+10. Design ATM – LLD
+    
+    State: to model ATM states (CardInserted, PinEntered, HasMoney) 
+    Strategy: for transaction types (Withdraw, Deposit, BalanceInquiry)
+    Command: to represent commands executed by ATM buttons
+    Singleton: for central ATM controller instance
+
+11. LLD of Cricbuzz App
+    
+    Observer:– to update scores and notifications to users
+    Facade: to wrap multiple data sources (live feed, commentary, stats APIs)
+    Singleton: for a central event or match controller
+    Strategy: for display logic (ODI, T20, Test match formats)
+
+12. LLD of Apply Coupons on Shopping Cart
+
+    Chain of Responsibility: to sequentially apply multiple coupon rules 
+    Strategy: to encapsulate different discount strategies
+    Factory: to create coupon instances based on type
+    Decorator: optionally to wrap cart items and add discount metadata

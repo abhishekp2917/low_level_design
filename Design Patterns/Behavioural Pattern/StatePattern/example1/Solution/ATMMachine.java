@@ -20,22 +20,6 @@ public class ATMMachine {
         if(this.cashInMachine==0) currentState = this.noCashState;
     }
 
-    public NoCardState getNoCardState() {
-        return noCardState;
-    }
-
-    public HasCardState getHasCardState() {
-        return hasCardState;
-    }
-
-    public HasPinState getHasPinState() {
-        return hasPinState;
-    }
-
-    public NoCashState getNoCashState() {
-        return noCashState;
-    }
-
     public ATMState getCurrentState() {
         return currentState;
     }

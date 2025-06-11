@@ -1,0 +1,50 @@
+____________________________________Problem__________________________________________
+
+Imagine you're designing a system where multiple objects (e.g., Employee, HR, Manager, 
+Accountant) interact with each other.
+
+Each object communicates directly with others, forming a complex web (or mesh) of dependencies.
+
+For example:
+
+    - The Employee communicates with HR, Manager, and Accountant.
+    - The Accountant also communicates with HR and Manager.
+
+As the number of objects increases, the interconnections multiply, making the system:
+
+Hard to understand
+
+Difficult to maintain
+
+Tightly coupled
+
+Fragile to changes (a change in one object may require changes in many others)
+
+This complexity violates the Single Responsibility and Open/Closed principles, making the system rigid and error-prone.
+
+____________________________________Solution__________________________________________
+
+The Mediator Pattern addresses this problem by introducing a Mediator object that centralizes and manages communication between components.
+
+Instead of objects referring to each other directly, they communicate via the mediator.
+This transforms the system from a "mesh" of interconnections to a hub-and-spoke model.
+
+Each participating object (called a Colleague) only knows the Mediator, not the other colleagues.
+
+Benefits of using Mediator Pattern:
+
+Loose coupling between interacting objects
+
+Improved maintainability — changes in one object don't impact others
+
+Simplified communication logic — the mediator handles coordination
+
+Enhanced reusability of components
+
+Use the Mediator Pattern when:
+
+You have a set of objects that communicate in complex but well-defined ways.
+
+You want to avoid tight coupling between components.
+
+You need a central point to control and coordinate interactions.
