@@ -1,21 +1,14 @@
-package BehaviouralPattern.ObserverPattern.example1.Solution;
+/**
+ * Subscriber (Observer interface in the Observer pattern).
+ *
+ * This interface should be implemented by any class that wants to
+ * observe and react to changes in an Observable (Subject).
+ */
+public interface Subscriber {
 
-/* 
-    Subscriber class which will store all the details of subscriber or observer
-*/
-public class Subscriber {
-    
-    public String name;
-
-    Subscriber(String name) {
-        this.name = name;
-    }
-
-    /* 
-        method to get update about videos from the channel passed as argument 
-        which will be used by the observable class to notify the subscriber
-    */
-    public void update(Channel channel) {
-        System.out.println("Hey " + this.name + "! " + channel.getChannelName() + " has uploaded new video");
-    }
+    /**
+     * Called by the Observable when it undergoes a state change.
+     * Implementing classes define how they respond to the update.
+     */
+    void notify(Observable observable);
 }

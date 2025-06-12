@@ -1,27 +1,32 @@
-package BehaviouralPattern.ObserverPattern.example1.Solution;
-
+/**
+ * Client1: Demonstrates the Observer Pattern in action.
+ *
+ * A Channel (Observable) notifies all subscribed Users (Subscribers)
+ * when it is updated.
+ */
 public class Client1 {
     public static void main(String[] args) {
-        
-        // creating new channel
-        Channel channel1 = new Channel("Gamming Channel");
 
-        // creating new subscribers
-        Subscriber subscriber1 = new Subscriber("Abhishek");
-        Subscriber subscriber2 = new Subscriber("Ravi");
-        Subscriber subscriber3 = new Subscriber("Suraj");
-        Subscriber subscriber4 = new Subscriber("Anjali");
+        // Create a new YouTube channel (Observable)
+        Observable channel1 = new Channel("Gaming Channel");
 
-        // adding all the subscriber to the channel1
-        channel1.addSubscriber(subscriber1);
-        channel1.addSubscriber(subscriber2);
-        channel1.addSubscriber(subscriber3);
-        channel1.addSubscriber(subscriber4);
+        // Create subscribers (Observers)
+        Subscriber subscriber1 = new User("Abhishek");
+        Subscriber subscriber2 = new User("Ravi");
+        Subscriber subscriber3 = new User("Suraj");
+        Subscriber subscriber4 = new User("Anjali");
 
-        /* 
-            uploading new videos which will notify all the subscribers about the update
-        */
-        channel1.uploadVideo(new Video("PUBG", "How to play PUBG"));
-        channel1.uploadVideo(new Video("XBOX", "How to configure XBOX"));
+        // Register all subscribers to the channel
+        channel1.subscribe(subscriber1);
+        channel1.subscribe(subscriber2);
+        channel1.subscribe(subscriber3);
+        channel1.subscribe(subscriber4);
+
+        /*
+         * Triggering an update on the channel.
+         * This simulates a new video or any other change,
+         * and will notify all subscribers.
+         */
+        channel1.update();
     }
 }
