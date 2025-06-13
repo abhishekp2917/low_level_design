@@ -1,0 +1,101 @@
+            
+                                                            ___________________________________________________
+                                                            |                <<abstract>>                     |
+                        ──────────────────────────────────◇|                  ATMState                        |
+                        |                                   |_________________________________________________|               
+                        |                                   |                                                 | 
+                        |                                   | - atmMachine : ATMMachine                       |
+                        |                                   |_________________________________________________|     
+                        |                                   |                                                 |
+                        |                                   | + insertCard() : void                           |                
+                        |                                   | + ejectCard() : void                            |                
+                        |                                   | + enterPIN(enteredPIN: int) : void              |                
+                        |                                   | + requestCash(cashAmount: int) : void           |    
+                        |                                   |                                                 |
+                        |                                   |_________________________________________________|                
+                        |                                                      ▲                     
+                        |                                                      :
+                        |                                                      :
+    _________________________________________________                          :       _________________________________________________                                                                                           
+    |                                               |                          :       |                                               |                                                                                               
+    |                  ATMMachine                   |                          :       |               NoCardState                     |                                                                                                                                                                                          
+    |_______________________________________________|                          :       |_______________________________________________|                                                                                                                                                                                          
+    |                                               |                          :       |                                               |                                                                                               
+    | - cashInMachine : int                         |                          :.......| + insertCard() : void                         |                                                                                                                                                                                          
+    | - noCardState : ATMState                      |                          :       | + ejectCard() : void                          |                                                                                                                                                                                          
+    | - hasCardState : ATMState                     |                          :       | + enterPIN(enteredPIN: int) : void            |                                                                                                                                                                                          
+    | - hasPinState : ATMState                      |                          :       | + requestCash(cashAmount: int) : void         |                                                                                               
+    | - noCashState : ATMState                      |                          :       |                                               |                                                                                                                                                                                          
+    | - currentState : ATMState                     |                          :       |_______________________________________________|                                                                                                                                                                                          
+    |_______________________________________________|                          :                                                        
+    |                                               |                          :                                                                                                        
+    | + setCurrentState(state : ATMState) : void    |                          :
+    | + getCurrentState() : ATMState                |                          :                                                                                                       
+    | + setCashInMachine(cash : int) : void         |                          :       _________________________________________________                                                                                           
+    | + getCashInMachine() : int                    |                          :       |                                               |
+    | + insertCard() : void                         |                          :       |               HasCardState                    |                                                                                           
+    | + ejectCard() : void                          |                          :       |_______________________________________________|                                                                                           
+    | + enterPIN(pin : int) : void                  |                          :       |                                               |
+    | + requestCash(amount : int) : void            |                          :.......| + insertCard() : void                         | 
+    | + getNoCardState() : ATMState                 |                          :       | + ejectCard() : void                          | 
+    | + getHasCardState() : ATMState                |                          :       | + enterPIN(enteredPIN: int) : void            | 
+    | + getHasPinState() : ATMState                 |                          :       | + requestCash(cashAmount: int) : void         |
+    | + getNoCashState() : ATMState                 |                          :       |                                               | 
+    |                                               |                          :       |_______________________________________________| 
+    |_______________________________________________|                          :       
+                                                                               :
+                                                                               :       _________________________________________________ 
+                                                                               :       |                                               |
+                                                                               :       |               HasPinState                     | 
+                                                                               :       |_______________________________________________| 
+                                                                               :       |                                               |
+                                                                               :.......| + insertCard() : void                         | 
+                                                                               :       | + ejectCard() : void                          | 
+                                                                               :       | + enterPIN(enteredPIN: int) : void            | 
+                                                                               :       | + requestCash(cashAmount: int) : void         |
+                                                                               :       |                                               | 
+                                                                               :       |_______________________________________________| 
+                                                                               :       
+                                                                               :
+                                                                               :       _________________________________________________ 
+                                                                               :       |                                               |
+                                                                               :       |               NoCashState                     | 
+                                                                               :       |_______________________________________________| 
+                                                                               :       |                                               |
+                                                                               :.......| + insertCard() : void                         | 
+                                                                                       | + ejectCard() : void                          | 
+                                                                                       | + enterPIN(enteredPIN: int) : void            | 
+                                                                                       | + requestCash(cashAmount: int) : void         |
+                                                                                       |                                               | 
+                                                                                       |_______________________________________________| 
+                                                                       
+                                                                       
+                                                                       
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

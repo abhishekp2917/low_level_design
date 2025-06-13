@@ -1,0 +1,34 @@
+____________________________________Problem__________________________________________
+
+Let’s say you have an entity that can be in multiple states, and in each state, 
+it behaves differently.
+
+For example, consider an ATM machine. It can be in states like NoCard, CardInserted, 
+Authenticated, or NoCash. Each of these states affects how actions like 
+insertCard(), ejectCard(), enterPin(), or withdrawCash() behave.
+
+A naive solution would use if-else or switch in each method to check the current state 
+and execute logic accordingly. 
+
+But this quickly becomes messy, hard to maintain, and violates the Open-Closed 
+Principle — adding a new state means changing multiple methods.
+
+____________________________________Solution__________________________________________
+
+The State Pattern addresses this by encapsulating state-specific behavior into separate classes.
+
+Each state (e.g., NoCardState, CardInsertedState) implements a common interface 
+(e.g., ATMState) and defines behavior specific to that state. The ATM context delegates 
+method calls to its current state and can transition to a new state internally.
+
+This allows:
+
+    - Clean separation of behaviors per state.
+
+    - Easy addition of new states without modifying existing logic.
+
+    - More maintainable and scalable design.
+
+For instance, when insertCard() is called in the NoCardState, it transitions the ATM to 
+the CardInsertedState. The ATM class doesn’t need to know what the behavior is — it just 
+delegates to the current state object.
