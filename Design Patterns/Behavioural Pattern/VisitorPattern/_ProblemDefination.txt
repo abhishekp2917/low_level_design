@@ -24,17 +24,19 @@ Each element (like SilverCard) implements an accept(Visitor visitor) method, whi
 
 This enables you to add new operations without modifying the existing object classes.
 
-✅ This provides:
-Open/Closed Principle compliance: Add new logic without changing existing classes.
+This provides:
+    
+    - Open/Closed Principle compliance: Add new logic without changing existing classes.
 
-Separation of concerns: Keep operations out of data classes.
+    - Separation of concerns: Keep operations out of data classes.
 
-Double Dispatch: Ensures the correct operation runs for both object type and visitor type.
+    - Double Dispatch: Ensures the correct operation runs for both object type and visitor type.
 
 Use the Visitor Pattern when:
-You have a complex object structure and want to perform multiple unrelated operations on it.
 
-You want to add new operations without modifying the objects.
+    - You have a complex object structure and want to perform multiple unrelated operations on it.
 
-You want to use double dispatch (execute logic based on both object and visitor type).
+    - You want to add new operations without modifying the objects.
+
+    - You want to use double dispatch (execute logic based on both object and visitor type).
 
