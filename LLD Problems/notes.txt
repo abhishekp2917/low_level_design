@@ -1,3 +1,30 @@
+LLD Principles:
+
+1. Class should mutate only those data which it holds. For mutating it's dependencies data, it should rely on dependencies methods.
+
+2. Class should check invariants only related to the data that it holds.
+
+3. Catch exceptions only when you can add value (recover, translate, or log). Otherwise, let them propagate.
+
+4. Avoid Singleton for stateful business classes because it restricts extensibility and testability. Prefer DI-managed instances.
+
+5. Even for stateless classes, prefer DI-managed single instances over Singleton pattern.
+
+6. Singleton pattern is rarely needed in application code; DI is usually a better choice.
+
+7. A class should have only one responsibility. it doesn't mean it should have only one method but one cohesive methods. 
+
+8. If you find a method that could be asked to extend i.e. could have multiple implementation, prefer strategy pattern. 
+   But don't apply this pattern upfront assuming a feature is anyways going to extended in future.
+
+9. Always prefer to make the code thread safe once the designing and core logic flow has been finalized.
+
+10. Use custom exceptions for domain-specific errors like invalid move, insufficient balance etc; use standard exceptions for generic validation like NPE.
+
+11. Avoid catching generic Exception unless at top-level boundaries for logging or graceful handling.
+
+LLD Problems:
+
 1. Parking Lot
     
     Factory Pattern: for creating different vehicle & spot types 
