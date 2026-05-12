@@ -84,6 +84,15 @@ public class GameManager {
         Game game = registeredGames.get(gameId);
         Player player = registeredPlayers.get(playerId);
         Move move = new Move(row, col, player);
-        game.makeMove(move);
+        Command command = new MakeMoveCommand(game, move);
+        game.executeCommand(command);
+    }
+
+    public void undoMove(long gameId) {
+        if(!registeredGames.containsKey(gameId)) {
+            throw new IllegalArgumentException("Invalid game Id.");
+        }
+        Game game = registeredGames.get(gameId);
+        game.undo();
     }
 }

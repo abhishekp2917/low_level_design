@@ -1,3 +1,4 @@
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
@@ -14,6 +15,7 @@ public class Game {
     private GameStatus status;
     private final ReentrantLock lock = new ReentrantLock();
     private final IWinningStrategy winningStrategy;
+    private final ArrayDeque<Command> commandHistory;
 
     private Game(Board board, List<Player> players, IWinningStrategy winningStrategy) {
         this.id = generateId();
@@ -23,6 +25,7 @@ public class Game {
         this.playerTurn = this.players.get(this.currPlayerIdx);
         this.status = GameStatus.IN_PROGRESS;
         this.winningStrategy = winningStrategy;
+        this.commandHistory = new ArrayDeque<>();
     }
 
     public long getId() { return this.id; }
@@ -35,39 +38,77 @@ public class Game {
 
     public GameStatus getStatus() { return this.status; }
 
-    public void makeMove(Move move) {
+    public void executeCommand(Command command) {
+        if(command==null) {
+            throw new IllegalArgumentException("Invalid command.");
+        }
+        lock.lock();
+        try {
+            command.execute();
+            this.commandHistory.addLast(command);
+        }
+        finally{
+            lock.unlock();
+        }
+    }
+
+    public void undo() {
+        lock.lock();
+        try {
+            if(this.commandHistory.isEmpty()) {
+                throw new IllegalStateException("Nothing left to undo.");
+            }
+            this.commandHistory.pollLast().undo();
+        }
+        finally {
+            lock.unlock();
+        }
+    }
+
+    public void applyMove(Move move) {
         if(move==null || move.getPlayer()==null || move.getPlayer().getSymbol()==null) {
             throw new IllegalArgumentException("Invalid move.");
         }
         Player player = move.getPlayer();
         int col = move.getCol();
         int row = move.getRow();
-        lock.lock();
-        try{
-            if(this.status!=GameStatus.IN_PROGRESS) {
-                throw new IllegalStateException("Game is already finished.");
-            }
-            if(!players.contains(player)) {
-                throw new IllegalStateException("Player doesn't belong to this game.");
-            }
-            if(!player.equals(this.playerTurn)) {
-                throw new IllegalStateException("Player turn is invalid.");
-            }
-            this.board.setSymbol(row, col, player.getSymbol());
-            if(hasWon(move)) {
-                this.status = GameStatus.FINISHED;
-                this.winner = this.playerTurn;
-                return;
-            }
-            else if(hasDrawn()) {
-                this.status = GameStatus.DRAW;
-                return;
-            }
-            advanceTurn();
+        if(this.status!=GameStatus.IN_PROGRESS) {
+            throw new IllegalStateException("Game is already finished.");
         }
-        finally{
-            lock.unlock();
+        if(!players.contains(player)) {
+            throw new IllegalStateException("Player doesn't belong to this game.");
         }
+        if(!player.equals(this.playerTurn)) {
+            throw new IllegalStateException("Player turn is invalid.");
+        }
+        this.board.setSymbol(row, col, player.getSymbol());
+        if(hasWon(move)) {
+            this.status = GameStatus.FINISHED;
+            this.winner = this.playerTurn;
+            return;
+        }
+        else if(hasDrawn()) {
+            this.status = GameStatus.DRAW;
+            return;
+        }
+        advanceTurn();
+    }
+
+    public void revertMove(Move move) {
+        if(move==null || move.getPlayer()==null) {
+            throw new IllegalArgumentException("Invalid move.");
+        }
+        Player player = move.getPlayer();
+        int col = move.getCol();
+        int row = move.getRow();
+        if(this.status!=GameStatus.IN_PROGRESS) {
+            throw new IllegalStateException("Game is already finished.");
+        }
+        if(!players.contains(player)) {
+            throw new IllegalStateException("Player doesn't belong to this game.");
+        }
+        this.board.setSymbol(row, col, null);
+        backTurn();
     }
 
     private boolean hasWon(Move move) {
@@ -92,6 +133,11 @@ public class Game {
 
     private void advanceTurn() {
         this.currPlayerIdx = (this.currPlayerIdx+1)%this.players.size();
+        this.playerTurn = this.players.get(this.currPlayerIdx);
+    }
+
+    private void backTurn() {
+        this.currPlayerIdx = (this.players.size()+this.currPlayerIdx-1)%this.players.size();
         this.playerTurn = this.players.get(this.currPlayerIdx);
     }
 

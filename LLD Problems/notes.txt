@@ -23,6 +23,8 @@ LLD Principles:
 
 11. Avoid catching generic Exception unless at top-level boundaries for logging or graceful handling.
 
+12. Use an enum when it’s just an identifier; use a class when it has state or behavior that may evolve independently.
+
 LLD Problems:
 
 1. Parking Lot
