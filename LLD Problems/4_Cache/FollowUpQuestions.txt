@@ -1,0 +1,96 @@
+*   How would you improve concurrency in cache ?
+
+>>  Use segmented/sharded cache instead of one global cache.
+    
+    A cache would be segmented into N smaller cache of capacity (totalSize/N).
+
+    Each segment maintains:
+        - its own map
+        - DLL
+        - lock
+        - capacity
+    With the help of Consistent Hashing, key would be routed to a sepcific segment. 
+
+    This reduces lock contention significantly because requests distribute across segments.
+
+    It has tradeoff i.e one segment could be a hot contention and other would remain idle.
+
+________________________________________________________________________________________________________________________
+
+
+*   How would you ensure expired entries are never returned during concurrent access ?
+
+>>  Check expiry inside the same synchronized block used for DLL (Doubly Linked List) mutations.
+        
+        - When a get() request comes in for a key, check if that key is expired.
+        - If expired, detach node from DLL, remove from map and return null.
+
+________________________________________________________________________________________________________________________
+
+*   How would you optimize TTL cleanup without scanning the full cache ?
+
+>>  Maintain separate DLL ordered by expiry time.
+    
+        - New entries inserted at front.
+        - Oldest expiry stays at tail.
+        - Cleanup starts from tail and stops at first non-expired node.
+        - Cleanup complexity becomes proportional only to expired entries.
+
+________________________________________________________________________________________________________________________
+
+*   How would you improve read scalability when every get() updates LRU ordering ?
+
+>>  Strict LRU makes reads internally behave like writes.
+    
+        - Every get() currently acquires lock and mutates DLL.
+        - Relax perfect LRU accuracy and store the access events to process them later asynchronously.
+        - When get() request comes, it returns immediately.
+        - Background thread proccess batch these request and periodically updates the DLL later.
+        - It has a tradeoff i.e approximate LRU ordering which is acceptable in .
+
+________________________________________________________________________________________________________________________
+
+*   How would you reduce hot-segment contention in segmented cache ?
+
+>>  Use Consistent Hashing instead of naive partitioning.
+    Assign multiple virtual nodes per segment in hash ring which improves load distribution across segments.
+
+________________________________________________________________________________________________________________________
+
+*   What memory optimizations would you consider for very large caches ?
+
+>>  Reduce object count and avoid one object per node where possible.
+    Use object pooling to reduce GC pressure.
+
+________________________________________________________________________________________________________________________
+
+*   How would you prevent cache stampede when hot keys expire ?
+
+>>  When a key expires and let say 10k get() request comes in, instead of making 10k request to DB and overwhelm it, 
+    ensure only one thread reloads value from DB avoiding thundering herd problem.
+        
+    Other threads wait until the first thread reloads the data from DB.
+    To ensure waiting, use per-key lock. 
+
+________________________________________________________________________________________________________________________
+
+*   Why prefer lazy cleanup over continuous background cleanup ?
+
+>>  Background cleanup continuously consumes CPU.
+    Many entries may never be accessed again.
+    
+    Lazy cleanup performs work only when needed.
+        - During put() if cache is under capacity pressure, TTL DLL allows cleanup in expiry order.
+        - This Avoids full scans and better CPU efficiency for many workloads.
+
+________________________________________________________________________________________________________________________
+
+*   How would you reduce DLL lock contention further?
+
+>>  Avoid updating DLL synchronously on every read. Instead, maintain a buffer of get()/put() request events asynchronously.
+
+    Use background worker to reorder entries periodically in batches.
+        
+    This has a tradeoff i.e. approximate ordering but with much higher throughput.
+
+________________________________________________________________________________________________________________________

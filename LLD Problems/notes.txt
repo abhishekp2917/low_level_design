@@ -32,6 +32,13 @@ LLD Principles:
     Use tryLock() when it’s better to reject fast than let threads wait under heavy contention.
     Use CAS(AtomicReference) when contention is moderate and state update is simple.
      
+15. Use interface → implementations approach when entire object behavior/workflow differs.
+    Use Strategy Pattern when only one specific algorithm/policy varies within otherwise common orchestration.
+
+16. A strategy class can own multiple related operations and can be statefull as long as they belong to the same varying concern.
+
+17. Read outside lock/synchronized block only if the data is immutable OR safely usable without requiring consistency else always read inside lock/synchronized block.
+
 LLD Problems:
 
 1. Parking Lot
