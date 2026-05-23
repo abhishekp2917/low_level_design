@@ -43,7 +43,7 @@ public class IpBasedFixedWindowRateLimitingStrategy implements IRateLimitingStra
 
     // 2. Lockbased locking (Interview Friendly)
     @Override
-    public boolean isAllowed(Request request) {
+    public boolean isAllowed(ElevatorContext request) {
         String ipAddress = request.getIpAddress();
         long requestReceivedAt = System.currentTimeMillis();
         long nextLimitRefreshTime = requestReceivedAt + TimeUnit.SECONDS.toMillis(this.windowSizeInSec);

@@ -39,6 +39,9 @@ LLD Principles:
 
 17. Read outside lock/synchronized block only if the data is immutable OR safely usable without requiring consistency else always read inside lock/synchronized block.
 
+18. Use event driven design only when the request are asynchronous i.e it is fine if we don't need response to be immediate.
+    If system needs to be synchronous or scale of system is manageable then go for centralized system design. 
+
 LLD Problems:
 
 1. Parking Lot

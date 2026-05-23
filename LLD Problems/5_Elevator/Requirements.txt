@@ -1,0 +1,26 @@
+Functional Requirements:
+    
+    - System should support multiple elevators.
+    - Users should be able to make external UP/DOWN requests from floors.
+    - Users inside elevator should be able to select destination floors.
+    - System should assign requests to appropriate elevators.
+    - Elevators should move between floors and process requests.
+    - System should maintain elevator states and pending requests.
+    - System should support configurable scheduling strategies.
+
+Non-Functional Requirements:
+
+    - System should handle concurrent requests safely.
+    - Elevator scheduling should minimize wait time and starvation.
+    - Design should be extensible for future features and strategies.
+    - System should efficiently process and prioritize requests.
+    - Lock contention and synchronization overhead should be minimized.
+    - Design should support scalability for larger buildings/more elevators.
+    - System should maintain consistency of elevator states under concurrency.
+    - System should gracefully handle elevator unavailability or maintenance scenarios.
+
+
+
+
+
+

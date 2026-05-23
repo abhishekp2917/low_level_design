@@ -10,7 +10,7 @@ public class RateLimiter {
         this.rateLimitingStrategyFactory.setRateLimitingConfig(rateLimitingConfig);
     }
 
-    public boolean isAllowed(Request request) {
+    public boolean isAllowed(ElevatorContext request) {
         return rateLimitingStrategyFactory.getInstance().isAllowed(request);
     }
 

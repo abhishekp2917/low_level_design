@@ -1,0 +1,303 @@
+*   How would you avoid global lock contention in `getElevator()` assignment flow ?
+
+>>  Avoid one globally synchronized assignment path for all elevator requests.
+    
+    Current bottleneck:
+        - All floor requests serialize on ElevatorSystem lock.
+
+    Use optimistic assignment/reservation approach.
+
+    Each elevator maintains:
+        - pending request count
+        - reserved capacity
+        - current movement metadata
+
+    Assignment flow:
+        - Take lightweight snapshot of elevators.
+        - Select best candidate.
+        - Atomically reserve slot in that elevator.
+        - If reservation fails, retry with another elevator.
+
+    This reduces global coordination contention significantly.
+
+    Tradeoff:
+        - Scheduling uses eventually consistent snapshots.
+        - More retry complexity.
+
+________________________________________________________________________________________________________________________
+
+*   How would you ensure multiple concurrent floor requests do not repeatedly assign the same elevator ?
+
+>>  Serialize assignment decision or use atomic reservation.
+
+    Without coordination:
+        - Multiple threads may observe same elevator snapshot.
+        - Delegation strategy may repeatedly assign same elevator.
+
+    Solution:
+        - Synchronize assignment flow.
+        - OR atomically reserve capacity during delegation.
+
+    This ensures request distribution remains balanced under concurrency.
+
+________________________________________________________________________________________________________________________
+
+*   How would you improve elevator worker coordination without explicit `wait()/notify()` ?
+
+>>  Replace manual monitor coordination with higher-level concurrency primitives.
+
+    Use:
+        - BlockingQueue
+        - Semaphore
+        - Condition variables
+        - Actor mailbox/event queue
+
+    Elevator worker blocks automatically when idle and wakes on new requests.
+
+    Benefits:
+        - Cleaner coordination logic
+        - Avoids monitor ownership bugs
+        - Easier concurrency reasoning
+
+    Tradeoff:
+        - Must still preserve custom scheduling semantics.
+        - FIFO queue alone weakens elevator route optimization.
+
+________________________________________________________________________________________________________________________
+
+*   How would you preserve route-aware scheduling while still using BlockingQueue ?
+
+>>  Use BlockingQueue only for wakeup signaling, not request ordering.
+
+    Elevator scheduling depends on:
+        - direction
+        - future stops
+        - path optimization
+
+    FIFO queue alone is insufficient.
+
+    Better approach:
+        - SchedulingStrategy still owns request ordering.
+        - BlockingQueue acts only as worker notification mechanism.
+
+    Flow:
+        - queueRequest() updates scheduler.
+        - Signal queue wakes elevator worker.
+        - Scheduler decides next optimal floor.
+
+    This preserves scheduling flexibility while simplifying coordination.
+
+________________________________________________________________________________________________________________________
+
+*   How would you improve scalability if one elevator becomes overloaded with requests ?
+
+>>  Avoid repeatedly assigning requests to already busy elevators.
+
+    Delegation strategy should consider:
+        - pending stops
+        - request density
+        - direction compatibility
+        - estimated arrival delay
+
+    Heavily loaded elevators receive lower priority during assignment.
+
+    This improves:
+        - fairness
+        - latency distribution
+        - passenger wait time
+
+    Tradeoff:
+        - Slightly more expensive scheduling computation.
+
+________________________________________________________________________________________________________________________
+
+*   How would you reduce lock contention inside an elevator worker ?
+
+>>  Synchronize only short shared-state transitions.
+
+    Avoid holding lock during:
+        - elevator movement simulation
+        - sleep/wait duration
+        - long-running processing
+
+    Instead:
+        - Lock only while updating shared state.
+        - Perform movement execution outside lock.
+
+    This allows:
+        - concurrent request submission
+        - lower producer blocking
+        - better responsiveness
+
+________________________________________________________________________________________________________________________
+
+*   How would you ensure elevator state remains visible across threads without excessive synchronization ?
+
+>>  Use single-writer ownership with volatile visibility guarantees.
+
+    Elevator worker thread exclusively mutates:
+        - currentFloor
+        - direction
+        - status
+
+    Other threads only read these fields.
+
+    Use volatile to guarantee latest state visibility to readers.
+
+    This avoids:
+        - unnecessary synchronization
+        - stale state reads
+        - excessive lock contention
+
+________________________________________________________________________________________________________________________
+
+*   How would you improve fault isolation between elevators ?
+
+>>  Treat each elevator as an isolated worker/actor.
+
+    Each elevator owns:
+        - its own thread
+        - scheduler
+        - request queue
+        - movement state
+
+    Failure in one elevator:
+        - does not block others
+        - does not corrupt global coordination
+
+    ElevatorSystem only performs lightweight orchestration.
+
+    This improves:
+        - isolation
+        - resiliency
+        - concurrency simplicity
+
+________________________________________________________________________________________________________________________
+
+*   How would you optimize request scheduling for very tall buildings with many floors ?
+
+>>  Partition elevators into logical zones.
+
+    Example:
+        - Elevator Group A → floors 1–30
+        - Elevator Group B → floors 31–60
+        - Elevator Group C → floors 61–100
+
+    Requests routed primarily within zone.
+
+    Benefits:
+        - Reduced traversal distance
+        - Lower average wait time
+        - Improved throughput
+
+    Tradeoff:
+        - Inter-zone movement becomes more complex.
+
+________________________________________________________________________________________________________________________
+
+*   How would you avoid starvation where some requests wait indefinitely ?
+
+>>  Balance optimization with fairness.
+
+    Pure route optimization may continuously prioritize:
+        - nearby requests
+        - same-direction requests
+
+    Older requests may starve.
+
+    Solution:
+        - Track request wait duration.
+        - Gradually increase priority of long-waiting requests.
+
+    This ensures:
+        - fairness
+        - bounded waiting time
+        - better passenger experience
+
+________________________________________________________________________________________________________________________
+
+*   How would you evolve this centralized elevator system into event-driven architecture ?
+
+>>  Decouple orchestration from direct method invocation.
+
+    Instead of:
+        - ElevatorSystem directly invoking elevator methods
+
+    Use:
+        - request events
+        - command queue/mailbox
+        - event bus/message broker
+
+    Elevator workers asynchronously consume commands.
+
+    Benefits:
+        - loose coupling
+        - better scalability
+        - easier distributed deployment
+
+    Tradeoff:
+        - eventual consistency
+        - increased operational complexity
+
+________________________________________________________________________________________________________________________
+
+*   Why is one worker thread per elevator preferable over multiple worker threads ?
+
+>>  Elevator behaves like a sequential state machine.
+
+    At any instant elevator has:
+        - one current floor
+        - one direction
+        - one movement state
+
+    Multiple worker threads may:
+        - produce conflicting movements
+        - corrupt state transitions
+        - violate scheduling order
+
+    Single worker model:
+        - simplifies synchronization
+        - preserves deterministic behavior
+        - naturally models real elevator movement
+
+________________________________________________________________________________________________________________________
+
+*   How would you optimize scheduling computation if delegation becomes expensive with many elevators ?
+
+>>  Avoid scanning all elevators for every request.
+
+    Maintain indexed/grouped structures:
+        - idle elevators
+        - elevators per direction
+        - elevators per zone
+
+    Delegation strategy searches only relevant subset.
+
+    Benefits:
+        - lower scheduling latency
+        - reduced CPU usage
+        - better scalability
+
+    Tradeoff:
+        - additional indexing maintenance overhead.
+
+________________________________________________________________________________________________________________________
+
+*   How would you gracefully shutdown the elevator system ?
+
+>>  Manage worker lifecycle through ExecutorService.
+
+    Elevator workers execute through bounded thread pool.
+
+    Shutdown flow:
+        - Stop accepting new requests.
+        - Signal worker interruption.
+        - Finish in-progress movement.
+        - Gracefully terminate threads.
+
+    Benefits:
+        - controlled lifecycle
+        - clean resource management
+        - safer operational shutdown
+
+________________________________________________________________________________________________________________________
