@@ -1,4 +1,4 @@
 public interface IRateLimitingStrategy {
     
-    public boolean isAllowed(ElevatorContext request);
+    public boolean isAllowed(Request request);
 }
